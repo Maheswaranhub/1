@@ -65,4 +65,13 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: $(webAppName)
-              package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+              package: '$- task: AzureFileCopy@5
+  inputs:
+    SourcePath: '(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+    azureSubscription: 'Free Trial (a6a0879d-cee4-4fb3-9bb9-f0b311b3bcce)'
+    Destination: 'AzureVMs'
+    storage: 'csg100320028b2934d1'
+    resourceGroup: 'RG11APR'
+    vmsAdminUserName: 'vm1'
+    vmsAdminPassword: 'Vm@1234567890'
+    TargetPath: 'original''
